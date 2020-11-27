@@ -1,16 +1,15 @@
 import sys
 from random import randint
 
-from PyQt5 import uic
+from ui_file import Ui_MainWindow
 from PyQt5.QtGui import QPainter, QPen, QColor, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('untitled.ui', self)  # Загружаем дизайн
-
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.circle)
 
         canvas = QPixmap(600, 600)
@@ -23,7 +22,7 @@ class MyWidget(QMainWindow):
         painter = QPainter(self.label.pixmap())
         pen = QPen()
         pen.setWidth(3)
-        pen.setColor(QColor('#fde910'))  # лимонный цвет
+        pen.setColor(QColor(randint(0, 255), randint(0, 255), randint(0, 255)))  # лимонный цвет
         painter.setPen(pen)
         painter.drawEllipse(x, y, d, d)
         painter.end()
